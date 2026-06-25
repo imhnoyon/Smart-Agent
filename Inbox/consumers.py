@@ -3,7 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.shortcuts import get_object_or_404
 from .models import Conversation, Message
-
+from .tasks import conversation_sentiment
 
 class ConversationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -99,5 +99,5 @@ class ConversationConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def trigger_sentiment_analysis(self):
         """Trigger Celery task for sentiment analysis"""
-        from .tasks import analyze_conversation_sentiment_task
-        analyze_conversation_sentiment_task.delay(int(self.conversation_id))
+        
+        conversation_sentiment.delay(int(self.conversation_id))

@@ -1,3 +1,4 @@
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -9,7 +10,7 @@ from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
 from .lock_manager import get_lock_state, acquire_lock, release_lock
 from .services.suggestion_engine import get_suggestion
-from .tasks import analyze_conversation_sentiment_task
+from .tasks import  conversation_sentiment
 
 
 class ConversationList(APIView):
@@ -45,16 +46,12 @@ class MessageListCreate(APIView):
 
     def post(self, request, pk):
         conversation = get_object_or_404(Conversation, pk=pk)
-        
-        # Pass view context so serializer validates concurrency locking rules
         serializer = MessageSerializer(
             data=request.data,
             context={'request': request, 'view': self}
         )
         serializer.is_valid(raise_exception=True)
         message_obj = serializer.save(conversation=conversation)
-
-        # Broadcast new message via channels group
         channel_layer = get_channel_layer()
         if channel_layer:
             async_to_sync(channel_layer.group_send)(
@@ -68,9 +65,8 @@ class MessageListCreate(APIView):
                 }
             )
 
-        # Trigger background sentiment analysis if sender is an agent
         if message_obj.sender == 'agent':
-            analyze_conversation_sentiment_task.delay(conversation.id)
+            conversation_sentiment.delay(conversation.id)
 
         return Response(MessageSerializer(message_obj).data, status=status.HTTP_201_CREATED)
 
@@ -99,8 +95,6 @@ class LockAcquire(APIView):
     def post(self, request, pk):
         get_object_or_404(Conversation, pk=pk)
         success, lock_state = acquire_lock(pk, request.user)
-        
-        # Broadcast lock status change via Channels
         channel_layer = get_channel_layer()
         if channel_layer:
             async_to_sync(channel_layer.group_send)(
@@ -113,7 +107,6 @@ class LockAcquire(APIView):
                     }
                 }
             )
-
         if success:
             return Response(
                 {"message": "Lock acquired successfully", "lock_state": lock_state},
@@ -135,8 +128,6 @@ class LockRelease(APIView):
     def post(self, request, pk):
         get_object_or_404(Conversation, pk=pk)
         success, msg = release_lock(pk, request.user)
-        
-        # Broadcast lock status change via Channels
         lock_state = get_lock_state(pk)
         channel_layer = get_channel_layer()
         if channel_layer:

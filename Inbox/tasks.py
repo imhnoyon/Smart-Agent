@@ -4,7 +4,7 @@ from .models import Conversation
 from .services.sentiment_analyzer import sentiment_analyzer
 
 @shared_task
-def analyze_conversation_sentiment_task(conversation_id):
+def conversation_sentiment(conversation_id):
     try:
         with transaction.atomic():
             conversation = Conversation.objects.select_for_update().get(id=conversation_id)
