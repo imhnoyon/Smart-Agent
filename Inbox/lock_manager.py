@@ -22,7 +22,7 @@ def get_lock_state(conversation_id):
     return {
         'locked': True,
         'owner_id': lock_data['owner_id'],
-        'owner_username': lock_data['owner_username'],
+        'agent_email': lock_data['owner_email'],
         'expires_in_seconds': expires_in_seconds,
         'acquired_at': lock_data['acquired_at']
     }
@@ -39,7 +39,7 @@ def acquire_lock(conversation_id, user):
     ttl = 300 
     lock_data = {
         'owner_id': user.id,
-        'owner_username': user.username,
+        'agent_email': user.email,
         'acquired_at': now,
         'expires_at': now + ttl
     }
@@ -49,7 +49,7 @@ def acquire_lock(conversation_id, user):
     return True, {
         'locked': True,
         'owner_id': user.id,
-        'owner_username': user.username,
+        'agent_email': user.email,
         'expires_in_seconds': ttl,
         'acquired_at': now
     }

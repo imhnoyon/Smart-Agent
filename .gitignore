@@ -1,0 +1,74 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Django stuff
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Static files
+staticfiles/
+
+# Environment variables
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python build files
+build/
+dist/
+*.egg-info/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Migrations (optional)
+# */migrations/*
+# !*/migrations/__init__.py
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# mypy
+.mypy_cache/
+
+# PyCharm
+*.iml
+
+# VS Code
+.history/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Redis
+dump.rdb
+
+# Celery
+celerybeat-schedule
+
+# Logs
+logs/
+*.log
+
+# Secret keys
+secret_key.txt

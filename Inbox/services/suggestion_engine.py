@@ -3,8 +3,8 @@ RULES = [
     {
         "patterns": [r"refund", r"money\s*back", r"reimburse"],
         "response": (
-            "We're sorry to hear you'd like a refund. Could you share your order ID "
-            "or the email used at checkout?"
+            "We are sorry for the inconvenience.."
+            
         ),
     },
     {

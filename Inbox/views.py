@@ -122,7 +122,7 @@ class LockAcquire(APIView):
         else:
             return Response(
                 {
-                    "detail": f"This conversation is locked by agent '{lock_state['owner_username']}'.",
+                    "detail": f"This conversation is locked by agent '{lock_state['owner_email']}'.",
                     "lock_state": lock_state
                 },
                 status=status.HTTP_409_CONFLICT
