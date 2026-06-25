@@ -31,6 +31,7 @@ pycparser==3.0
 PyJWT==2.13.0
 pyOpenSSL==26.3.0
 python-dateutil==2.9.0.post0
+redis==8.0.1
 rest-framework-simplejwt==0.0.2
 service-identity==26.1.0
 six==1.17.0
@@ -43,4 +44,5 @@ tzlocal==5.4.3
 ujson==5.13.0
 vine==5.1.0
 wcwidth==0.8.1
+whitenoise==6.12.0
 zope.interface==8.5
