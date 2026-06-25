@@ -6,9 +6,6 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 @database_sync_to_async
 def get_user_from_token(token_string):
-    """
-    Validate JWT token and return user object
-    """
     try:
         token = AccessToken(token_string)
         user_id = token['user_id']
@@ -19,11 +16,6 @@ def get_user_from_token(token_string):
 
 
 class JWTAuthMiddleware:
-    """
-    Middleware to authenticate WebSocket connections using JWT token from query string.
-    Usage: ws://localhost:8001/ws/conversations/1/?token=YOUR_JWT_TOKEN
-    """
-
     def __init__(self, inner):
         self.inner = inner
 

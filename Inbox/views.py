@@ -13,10 +13,6 @@ from .tasks import analyze_conversation_sentiment_task
 
 
 class ConversationList(APIView):
-    """
-    GET /api/conversations/
-    Lists conversations with search and status filtering (paginated).
-    """
     def get(self, request):
         queryset = Conversation.objects.all().order_by('-created_at')
         status_param = request.query_params.get('status')
@@ -39,10 +35,6 @@ class ConversationList(APIView):
 
 
 class MessageListCreate(APIView):
-    """
-    GET  /api/conversations/{pk}/messages/ — Retrieve thread history (open for all).
-    POST /api/conversations/{pk}/messages/ — Post a message (open for all).
-    """
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, pk):
@@ -84,10 +76,6 @@ class MessageListCreate(APIView):
 
 
 class SuggestReply(APIView):
-    """
-    POST /api/conversations/{pk}/suggest-reply/
-    Returns AI suggestion using keyword matrices.
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
@@ -98,12 +86,7 @@ class SuggestReply(APIView):
 
 
 class LockDetail(APIView):
-    """
-    GET /api/conversations/{pk}/lock/
-    Returns concurrency lock details.
-    """
     permission_classes = [permissions.IsAuthenticated]
-
     def get(self, request, pk):
         get_object_or_404(Conversation, pk=pk)
         lock_state = get_lock_state(pk)
@@ -111,10 +94,6 @@ class LockDetail(APIView):
 
 
 class LockAcquire(APIView):
-    """
-    POST /api/conversations/{pk}/lock/acquire/
-    Acquires or renews a lock on a conversation thread.
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
@@ -151,10 +130,6 @@ class LockAcquire(APIView):
 
 
 class LockRelease(APIView):
-    """
-    POST /api/conversations/{pk}/lock/release/
-    Releases a lock on a conversation thread.
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):

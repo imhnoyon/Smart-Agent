@@ -2,7 +2,6 @@ import re
 
 class SentimentAnalyzer:
     def __init__(self):
-        # Word lists for simple keyword-based scoring
         self.positive_words = {
             'thank', 'thanks', 'great', 'awesome', 'perfect', 'resolved', 'love', 
             'satisfied', 'happy', 'excellent', 'good', 'solved', 'appreciate', 
@@ -18,7 +17,6 @@ class SentimentAnalyzer:
     def clean_text(self, text: str) -> list[str]:
         if not text:
             return []
-        # Convert to lowercase and split on word boundaries
         words = re.findall(r'\b\w+\b', text.lower())
         return words
 

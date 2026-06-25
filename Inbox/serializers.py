@@ -8,11 +8,7 @@ from django.contrib.auth import get_user_model
 
 
 class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
-    """
-    Custom JWT serializer that accepts `email` + `password`
-    instead of the default `username` + `password`.
-    """
-    username_field = get_user_model().EMAIL_FIELD  # 'email'
+    username_field = get_user_model().EMAIL_FIELD  
 
     def validate(self, attrs):
         User = get_user_model()

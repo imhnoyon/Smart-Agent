@@ -5,9 +5,6 @@ def get_lock_key(conversation_id):
     return f"lock:conversation:{conversation_id}"
 
 def get_lock_state(conversation_id):
-    """
-    Returns information about the lock status of a conversation.
-    """
     key = get_lock_key(conversation_id)
     lock_data = cache.get(key)
     
@@ -31,10 +28,6 @@ def get_lock_state(conversation_id):
     }
 
 def acquire_lock(conversation_id, user):
-    """
-    Attempts to acquire or renew a lock on a conversation for a specific user.
-    Returns: (success_bool, lock_state_dict)
-    """
     key = get_lock_key(conversation_id)
     lock_state = get_lock_state(conversation_id)
     
@@ -62,10 +55,6 @@ def acquire_lock(conversation_id, user):
     }
 
 def release_lock(conversation_id, user):
-    """
-    Attempts to release a lock on a conversation.
-    Returns: (success_bool, message_string)
-    """
     key = get_lock_key(conversation_id)
     lock_state = get_lock_state(conversation_id)
     
