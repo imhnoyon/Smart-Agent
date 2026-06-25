@@ -12,7 +12,7 @@ python manage.py collectstatic --noinput
 daphne -b 0.0.0.0 -p 8001 Smart_Agent.asgi:application
 ```
 
-Default admin: `admin@test.com` / `admin123`
+Default admin: `mahedi` / `123`
 
 Server: http://127.0.0.1:8001
 
