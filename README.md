@@ -84,4 +84,4 @@ Receive:
 
 ## Tech
 
-Django 6, Channels, Daphne, DRF, JWT, Celery, SQLite
+Django 6, Channels, Daphne, DRF, JWT, Celery, PostgreSQL
