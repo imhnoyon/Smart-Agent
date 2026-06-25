@@ -66,7 +66,7 @@ Connect: `ws://127.0.0.1:8001/ws/conversations/1/?token=<token>`
 
 Send:
 ```json
-{"sender": "agent", "message": "Hello"}
+{"sender": "agent", "message": "How can i help you?"}
 ```
 
 Receive:
@@ -76,7 +76,7 @@ Receive:
   "message": {
     "id": 10,
     "sender": "customer",
-    "message": "Thanks!",
+    "message": "I need to refund...",
     "timestamp": "2026-06-25T10:35:00Z"
   }
 }
